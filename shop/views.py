@@ -2,20 +2,27 @@ from django.shortcuts import render
 from django.http  import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+
 from django.template.loader import render_to_string
 from django.views.generic import RedirectView
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
 from .models import *
+from .serializer import *
 
 # Create your views here.
-def index(request):
-    return HttpResponse('Welcome to the Moringa Tribune')
+class MerchList(APIView):
+    def index(self, request, format=None):
+        all_merch = User.objects.all()
+        serializers = MerchSerializer(all_merch, many=True)
+        return Response(serializers.data)
 
 
 def signup(request):
