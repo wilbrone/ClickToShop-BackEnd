@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.views.generic import RedirectView
 
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
@@ -18,23 +19,15 @@ from .models import *
 from .serializer import *
 
 # Create your views here.
-class MerchList(APIView):
-    def index(self, request, format=None):
-        all_merch = User.objects.all()
-        serializers = MerchSerializer(all_merch, many=True)
-        return Response(serializers.data)
+class ListUsersView(viewsets.ModelViewSet):
+
+    permission_classes = (permissions.AllowAny,)
+
+    queryset = Profile.objects.all().order_by('name')
+    serializer_class = MerchSerializer
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
-    else:
-        form = SignUpForm()
-    return render(request, 'registration/registration_form.html', {'form': form})
+class ListProductsView(viewsets.ModelViewSet):
+
+    queryset = Products.objects.all().order_by('name')
+    serializer_class = ProductsSerializer

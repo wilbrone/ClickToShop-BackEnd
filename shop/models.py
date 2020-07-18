@@ -33,3 +33,15 @@ class Profile(models.Model):
 
     def delete_profile(self):
         self.delete()
+
+
+
+class Products(models.Model):
+    name = models.CharField(max_length=60)
+    description = models.CharField(max_length=500)
+    price = models.IntegerField()
+    img_url = models.CharField(max_length=1000, blank=True)
+
+    
+    def __str__(self):
+        return self.name
