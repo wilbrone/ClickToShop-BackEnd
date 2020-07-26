@@ -8,7 +8,6 @@ from django.dispatch import receiver
 # Create your models here.
 class Profile(models.Model):
     name=models.CharField(max_length=50)
-    bio=models.CharField(max_length=300)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
@@ -45,3 +44,12 @@ class Products(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    t_price = models.IntegerField()
+
+    def __str__(self):
+        return self.product.name

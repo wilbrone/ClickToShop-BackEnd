@@ -11,7 +11,6 @@ from django.template.loader import render_to_string
 from django.views.generic import RedirectView
 
 from rest_framework import viewsets
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
@@ -29,5 +28,16 @@ class ListUsersView(viewsets.ModelViewSet):
 
 class ListProductsView(viewsets.ModelViewSet):
 
+    permission_classes = (permissions.AllowAny,)
+
     queryset = Products.objects.all().order_by('name')
     serializer_class = ProductsSerializer
+
+
+class OrderItemView(viewsets.ModelViewSet):
+
+    permission_classes = (permissions.AllowAny,)
+
+    queryset = Products.objects.all().order_by('quantity')
+    serializer_class = ProductsSerializer
+
