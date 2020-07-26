@@ -15,6 +15,6 @@ urlpatterns = [
     # path('account/', include('django.contrib.auth.urls')), 
     # path('', views.index, name='index'), 
     path('users/', views.ListUsersView.as_view({'post': 'list', 'get': 'list'}), name='users'),
-    path('products/', views.ListProductsView.as_view({'post': 'list', 'get': 'list'}), name='products')
-
+    path('products/', views.ListProductsView.as_view({'post': 'create', 'get': 'list'}), name='products'),
+    path('cart/', views.OrderItemView.as_view({'post': 'create', 'get': 'list'}), name='order-item')
 ]

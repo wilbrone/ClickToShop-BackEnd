@@ -18,8 +18,8 @@ class ProductsSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ('products','quantity','t_price')
+        fields = ('product','quantity','t_price')
 
-    def save(self):
-        # request = self.context.get("request")
-        pass
+    # def save(self):
+    #     # request = self.context.get("request")
+    #     pass
